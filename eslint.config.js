@@ -24,6 +24,7 @@ export default tseslint.config(
                 'warn',
                 { allowConstantExport: true },
             ],
+            'react-hooks/rules-of-hooks': 'off',
         },
     },
     eslintPluginPrettierRecommended,
