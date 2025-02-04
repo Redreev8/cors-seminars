@@ -3,7 +3,7 @@ import { Seminar } from '../../api/seminar/info'
 import getSeminars from '../../api/seminar/get-seminars'
 
 const useGetListSeminar = () => {
-    const [listSeminar, useListSeminar] = useState<Seminar[]>([])
+    const [listSeminar, setListSeminar] = useState<Seminar[]>([])
     const [error, setError] = useState<string>('')
     useEffect(() => {
         // timeout нужен что бы показать лодудинг компонент
@@ -13,12 +13,12 @@ const useGetListSeminar = () => {
                     setError(res)
                     return
                 }
-                useListSeminar(res)
+                setListSeminar(res)
             })
-        }, 3000)
+        }, 0)
     }, [])
 
-    return { listSeminar, error }
+    return { listSeminar, error, setListSeminar }
 }
 
 export default useGetListSeminar

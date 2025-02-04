@@ -5,9 +5,10 @@ import { Seminar } from '../../api/seminar/info'
 
 interface ListSeminarProps {
     listSeminar: Seminar[]
+    onDel: (id: Seminar['id']) => void
 }
 
-const ListSeminar: FC<ListSeminarProps> = ({ listSeminar }) => {
+const ListSeminar: FC<ListSeminarProps> = ({ onDel, listSeminar }) => {
     const clUl = classNames(
         'w-full',
         'md:w-[calc((100%-(var(--spacing)*4))/2)]',
@@ -17,7 +18,11 @@ const ListSeminar: FC<ListSeminarProps> = ({ listSeminar }) => {
         <ul className="flex flex-wrap gap-4">
             {listSeminar.map((seminar) => (
                 <li className={clUl} key={seminar.id}>
-                    <CardSeminar className="w-full" {...seminar} />
+                    <CardSeminar
+                        onDel={onDel}
+                        className="w-full"
+                        {...seminar}
+                    />
                 </li>
             ))}
         </ul>

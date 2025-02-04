@@ -4,13 +4,23 @@ import { Seminar } from '../../api/seminar/info'
 import Title from '../../ui/title'
 import Text from '../../ui/text'
 import classNames from 'classnames'
+import Btn from '../../ui/btn'
 
 interface CardSeminarProps extends Seminar {
     className?: string
+    onDel: (id: Seminar['id']) => void
 }
 
-const CardSeminar: FC<CardSeminarProps> = (props) => {
-    const { title, description, photo, time, date, className } = props
+const CardSeminar: FC<CardSeminarProps> = ({
+    title,
+    description,
+    photo,
+    time,
+    date,
+    className,
+    id,
+    onDel,
+}) => {
     const cl = classNames(className, 'flex flex-col gap-4 h-full')
     return (
         <Card className={cl}>
@@ -29,6 +39,11 @@ const CardSeminar: FC<CardSeminarProps> = (props) => {
                 <span>{date}</span>
                 <span>{time}</span>
             </time>
+            <div className="flex gap-2">
+                <Btn onClick={() => onDel(+id)} isDarkTan>
+                    Удалить
+                </Btn>
+            </div>
         </Card>
     )
 }
