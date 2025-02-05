@@ -7,6 +7,8 @@ import Loading from './ui/loading'
 import { createPortal } from 'react-dom'
 import СonfirmationModal from './components/confirmation-modal'
 import useRemoveSeminar from './components/seminar/useRemoveSeminar'
+import ModalChangeSeminar from './components/seminar/modal-change-seminar'
+import useChangeSeminar from './components/seminar/useChangeSeminar'
 
 const App: FC = () => {
     const { listSeminar, error, setListSeminar } = useGetListSeminar()
@@ -18,6 +20,14 @@ const App: FC = () => {
         handelNo,
         handelClickDeleteSeminar,
     } = useRemoveSeminar(setListSeminar)
+    const {
+        changemySeminar,
+        errorChange,
+        loudingChange,
+        changeSeminar,
+        handelChangeSeminar,
+        resetChangeSeminar,
+    } = useChangeSeminar(setListSeminar)
     return (
         <main>
             <section>
@@ -39,15 +49,29 @@ const App: FC = () => {
                             disabled={loudingRemove}
                         >
                             <p className="text-dark-tan text-base">
-                                {errorRemove}
+                                {errorChange}
                             </p>
                         </СonfirmationModal>,
+                        document.body,
+                    )}
+                    {createPortal(
+                        <ModalChangeSeminar
+                            disabled={loudingChange}
+                            seminar={changemySeminar}
+                            onCahge={changeSeminar}
+                            onClose={resetChangeSeminar}
+                        >
+                            <p className="text-dark-tan text-base">
+                                {errorRemove}
+                            </p>
+                        </ModalChangeSeminar>,
                         document.body,
                     )}
                     {error && <Title>{error}</Title>}
                     {!error && (
                         <ListSeminar
                             onDel={handelClickDeleteSeminar}
+                            onChange={handelChangeSeminar}
                             listSeminar={listSeminar}
                         />
                     )}
