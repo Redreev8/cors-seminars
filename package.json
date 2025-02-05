@@ -9,7 +9,7 @@
     "dev": "start npm run server && npm run vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "start npm run server && vite preview"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.3",

@@ -35,9 +35,12 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>(
         }
         useEffect(() => {
             if (isOpen) {
+                document.body.style.overflow = 'hidden'
                 setIsRender(() => true)
             }
-
+            if (!isOpen) {
+                document.body.style.overflow = 'auto'
+            }
             setIsHiden(() => false)
         }, [isOpen])
         useEffect(() => {

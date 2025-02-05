@@ -11,7 +11,7 @@ import ModalChangeSeminar from './components/seminar/modal-change-seminar'
 import useChangeSeminar from './components/seminar/useChangeSeminar'
 
 const App: FC = () => {
-    const { listSeminar, error, setListSeminar } = useGetListSeminar()
+    const { listSeminar, error, loudingGetSeminar, setListSeminar } = useGetListSeminar()
     const {
         idDelSeminar,
         handelYes,
@@ -32,15 +32,6 @@ const App: FC = () => {
         <main>
             <section>
                 <Container>
-                    {createPortal(
-                        <Loading
-                            isOpen={
-                                error.length === 0 && listSeminar.length === 0
-                            }
-                            className="fixed top-0 left-0 h-screen w-full"
-                        />,
-                        document.body,
-                    )}
                     {createPortal(
                         <СonfirmationModal
                             isOpen={typeof idDelSeminar === 'number'}
@@ -67,14 +58,23 @@ const App: FC = () => {
                         </ModalChangeSeminar>,
                         document.body,
                     )}
+                    {createPortal(
+                        <Loading
+                            isOpen={
+                                loudingGetSeminar
+                            }
+                            className="fixed top-0 left-0 h-screen w-full"
+                        />,
+                        document.body,
+                    )}
                     {error && <Title>{error}</Title>}
-                    {!error && (
+                    {listSeminar.length > 0 ? (
                         <ListSeminar
                             onDel={handelClickDeleteSeminar}
                             onChange={handelChangeSeminar}
                             listSeminar={listSeminar}
                         />
-                    )}
+                    ) : <Title>Симинаров нет</Title>}
                 </Container>
             </section>
         </main>

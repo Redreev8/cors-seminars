@@ -5,20 +5,23 @@ import getSeminars from '../../api/seminar/get-seminars'
 const useGetListSeminar = () => {
     const [listSeminar, setListSeminar] = useState<Seminar[]>([])
     const [error, setError] = useState<string>('')
+    const [loudingGetSeminar, setLoudingGetSeminar] = useState<boolean>(true)
     useEffect(() => {
+        setLoudingGetSeminar(true)
         // timeout нужен что бы показать лодудинг компонент
         setTimeout(() => {
             getSeminars().then((res) => {
+                setLoudingGetSeminar(false)
                 if (typeof res === 'string') {
                     setError(res)
                     return
                 }
                 setListSeminar(res)
             })
-        }, 0)
+        }, 3000)
     }, [])
 
-    return { listSeminar, error, setListSeminar }
+    return { listSeminar, loudingGetSeminar, error, setListSeminar }
 }
 
 export default useGetListSeminar
