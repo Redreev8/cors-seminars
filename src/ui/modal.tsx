@@ -26,7 +26,7 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>(
                 'opacity-0 invisible': !isHidden,
             },
         )
-        const clCard = classNames(classNameCard, 'bg-lenen rounded-lg p-4')
+        const clCard = classNames(classNameCard, 'bg-lenen rounded-lg p-6')
         const hadnelTransitionEnd = (e: TransitionEvent<HTMLDivElement>) => {
             const el = e.target! as HTMLDivElement
             if (!('modal' in el.dataset)) return
