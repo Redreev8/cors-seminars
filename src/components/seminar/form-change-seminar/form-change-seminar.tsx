@@ -18,10 +18,11 @@ const FormChangeSeminar: FC<FormChangeSeminarProps> = ({
     onSubmit,
     ...props
 }) => {
-    const { registers, errors, handleSubmit } = useFormChangeSeminar({
-        seminar,
-        onSubmit,
-    })
+    const { registers, errors, handelErrorImg, refImg, handleSubmit } =
+        useFormChangeSeminar({
+            seminar,
+            onSubmit,
+        })
     return (
         <form
             onSubmit={handleSubmit}
@@ -29,6 +30,24 @@ const FormChangeSeminar: FC<FormChangeSeminarProps> = ({
             {...props}
         >
             <div className="flex flex-col gap-4">
+                <Label>
+                    <span className="flex items-center gap-2">
+                        <span>Фото url</span>
+                        <img
+                            onError={handelErrorImg}
+                            ref={refImg}
+                            src={seminar?.photo}
+                            className="border-dune size-[40px] rounded-full border object-cover"
+                        />
+                    </span>
+                    <Input
+                        className="w-full"
+                        disabled={disabled}
+                        {...registers.photo()}
+                        type="url"
+                    />
+                    <Error error={errors.photo} />
+                </Label>
                 <Label>
                     <span>Заголовок</span>
                     <Input
